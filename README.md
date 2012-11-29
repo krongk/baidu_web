@@ -7,7 +7,7 @@ Baidu_web是一个基于百度的元搜索引擎，输入关键字，返还百�
 
     gem 'baidu_web'
 
-## 参数
+## 调用
 
     # http://www.baidu.com/s?wd=inruby&pn=100&rn=50
     BaiduWeb.search("inruby", :per_page => 50, :page_index => 2)
