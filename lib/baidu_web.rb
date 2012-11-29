@@ -3,8 +3,8 @@ $:.unshift(File.dirname(__FILE__))
 
 require 'hpricot'
 require 'open-uri'
-require 'iconv'
-require 'cgi'
+#require 'iconv'
+#require 'cgi'
 require "baidu_web/version"
 require "baidu_web/record"
 require "baidu_web/extension_key"
@@ -29,26 +29,21 @@ module BaiduWeb
 
 	  	#get which page of result. (same as www.baidu.com/?<some params>&pn=0)
 	  	@page_index = options[:page_index]
-	  	@page_index ||= 2
+	  	@page_index ||= 1
 
 	  	#get the start item index.
 	  	item_index = (@page_index - 1 ) * @per_page
 
 	  	agent = Mechanize.new
-	 #  	form_page = agent.get("http://www.baidu.com")
-	 #  	sform = form_page.form_with(:action => "/s")
-		# sform.wd = @key_word
-		# spage = sform.submit
-		# #debug:
-		#
-		url = "http://www.baidu.com/s?wd=#{@key_word}&rn=#{@per_page}&pn=#{item_index}"
-		#debug: url
-		spage = agent.get(url)
-		#debug
-		# File.open(File.join(File.dirname(__FILE__), 'baidu_result.html'), "w"){|f| f.write(@ic.iconv(spage.body))}
 
-		#doc = Hpricot(@ic.iconv(spage.body))
-		doc = Hpricot(spage.body)
+  		url = "http://www.baidu.com/s?wd=#{@key_word}&rn=#{@per_page}&pn=#{item_index}"
+  		#debug: url
+  		spage = agent.get(url)
+  		#debug
+  		# File.open(File.join(File.dirname(__FILE__), 'baidu_result.html'), "w"){|f| f.write(@ic.iconv(spage.body))}
+
+  		#doc = Hpricot(@ic.iconv(spage.body))
+  		doc = Hpricot(spage.body)
 
 	  	#- this is hack on linux:
 	  	#case1:
@@ -61,14 +56,14 @@ module BaiduWeb
   		#   end
 	  	# }
 
-		return result if doc.blank?
-
-		result[:record_arr] = extract_item(doc, item_index)
-		result[:ext_key_arr] = extract_extension_key(doc)
-		#debug
-		puts result[:record_arr].size
-
-		return result
+  		return result if doc.blank?
+  
+  		result[:record_arr] = extract_item(doc, item_index)
+  		result[:ext_key_arr] = extract_extension_key(doc)
+  		#debug
+  		puts result[:record_arr].size
+  
+  		return result
 	  end
   
 	  private
@@ -123,26 +118,3 @@ module BaiduWeb
 
 	end
 end
-
-
-# Use baidu_web:
-#   result = BaiduWeb.search('key words')
-#   result[:record_arr].each do |record|
-#   	 puts record.title
-#   	 puts record.url
-#   	 puts record.summary
-#   	 puts record.updated_date
-#   	 puts record.item_index
-#   	 puts record.cached_url
-#   end
-#   result[:ext_key_arr].each do |ext_key|
-# 	 	puts ext_key.title
-# 	 	puts ext_key.url
-# 	end
-
-# Test baidu_web gem on irb:
-# 	$:.unshift(File.dirname(__FILE__))
-# 	require 'baidu_web'
-# 	require 'cgi'
-# 	result = BaiduWeb.search(CGI.escape("游戏"), :per_page => 10, :page_index => 1)
-
