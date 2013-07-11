@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Baidu web by krongk</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/krongk/baidu_web">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Baidu web</h1>
+            <h2>Baidu_web是一个基于百度的元搜索引擎，输入关键字，返还百度搜索结果和相关的关键词</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/krongk/baidu_web/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/krongk/baidu_web/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a name="baidu_web" class="anchor" href="#baidu_web"><span class="octicon octicon-link"></span></a>Baidu_web</h1>
+
+<p>Baidu_web是一个基于百度的元搜索引擎，输入关键字，返还百度搜索结果和相关的关键词</p>
+
+<h3>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a>用法</h3>
+
+<pre><code>gem 'baidu_web'
+</code></pre>
+
+<h3>
+<a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>依赖项</h3>
+
+<pre><code>require 'mechanize'
+require 'hpricot'
+</code></pre>
+
+<h3>
+<a name="-2" class="anchor" href="#-2"><span class="octicon octicon-link"></span></a>调用</h3>
+
+<pre><code># http://www.baidu.com/s?wd=inruby&amp;pn=100&amp;rn=50
+BaiduWeb.search("inruby", :per_page =&gt; 50, :page_index =&gt; 2)
+</code></pre>
+
+<h3>
+<a name="-3" class="anchor" href="#-3"><span class="octicon octicon-link"></span></a>返还结果</h3>
+
+<pre><code>result = BaiduWeb.search('key words')
+result[:record_arr].each do |record|
+  puts record.title
+  puts record.url
+  puts record.summary
+  puts record.updated_date
+  puts record.item_index
+  puts record.cached_url
+end
+result[:ext_key_arr].each do |ext_key|
+ puts ext_key.title
+ puts ext_key.url
+end
+</code></pre>
+
+<h3>
+<a name="irb" class="anchor" href="#irb"><span class="octicon octicon-link"></span></a>在irb中测试:</h3>
+
+<pre><code>$:.unshift(File.dirname(__FILE__))
+require 'mechanize'
+require 'hpricot'
+require 'open-uri'
+require 'baidu_web'
+require 'cgi'
+result = BaiduWeb.search(CGI.escape("游戏"), :per_page =&gt; 10, :page_index =&gt; 1)
+result = BaiduWeb.search("ruby", :per_page =&gt; 10, :page_index =&gt; 1)
+</code></pre>
+
+<h2>
+<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>在线Demo</h2>
+
+<p><a href="http://www.inruby.com/search">http://www.inruby.com/search</a></p>
+
+<h2>
+<a name="-4" class="anchor" href="#-4"><span class="octicon octicon-link"></span></a>关于我</h2>
+
+<p><a href="http://www.about.me/kenrome">http://www.about.me/kenrome</a></p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/krongk">krongk</a> can be found on <a href="https://github.com/krongk/baidu_web">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
